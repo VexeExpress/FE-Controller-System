@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { AddPartnerModal } from '../../components/company/AddPartnerModal';
 import { CompanyTable } from '../../components/company/CompanyTable';
 import { getParter } from '../../services/companyService';
-
+import '../../styles/css/company.css'
 export function Company() {
     const [show, setShow] = useState(false);
 
@@ -29,10 +29,11 @@ export function Company() {
     }, []);
     return (
         <>
-            <div class="partner-list">
-                <h5>DANH SÁCH ĐỐI TÁC</h5>
-                <Button variant="primary" onClick={handleShow}>Thêm đối tác</Button>
+            <div class="partner-header">
+                <span class="partner-title">DANH SÁCH ĐỐI TÁC</span>
+                <button class="btn-add-partner" onClick={handleShow}>Thêm đối tác</button>
             </div>
+
 
             {loading ? (
                 <p>Loading...</p>
@@ -42,7 +43,7 @@ export function Company() {
 
             <AddPartnerModal show={show} handleClose={handleClose} />
 
-            
+
         </>
     );
 };
