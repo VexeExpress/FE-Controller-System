@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const useAuthStatus = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
   
     useEffect(() => {
       const userId = sessionStorage.getItem('userId');
@@ -18,7 +18,6 @@ const useAuthStatus = () => {
     };
   
     return { isAuthenticated, logout };
-  };
-  
+};
 
 export default useAuthStatus;
