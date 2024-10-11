@@ -22,6 +22,7 @@ export function PieChart({ vehicleTripData }) {
                     '#FFCE56',
                     '#4BC0C0',
                     '#9966FF',
+                    '#33CC33',
                 ],
             },
         ],

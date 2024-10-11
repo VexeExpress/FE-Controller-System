@@ -13,9 +13,12 @@ export function CompanyDetails() {
     const fetchData = () => {
       setTimeout(() => {
         const vehicleData = [
-          { vehicleName: 'Xe A', tripCount: 10 },
-          { vehicleName: 'Xe B', tripCount: 15 },
-          { vehicleName: 'Xe C', tripCount: 5 },
+          { vehicleName: 'Xe A', tripCount: 89 },
+          { vehicleName: 'Xe B', tripCount: 150 },
+          { vehicleName: 'Xe C', tripCount: 500 },
+          { vehicleName: 'Xe D', tripCount: 190 },
+          { vehicleName: 'Xe E', tripCount: 230 },
+          { vehicleName: 'Xe F', tripCount: 329 },
         ];
         setVehicleTripData(vehicleData);
         setLoadingVehicle(false);
