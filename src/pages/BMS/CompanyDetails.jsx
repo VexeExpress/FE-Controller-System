@@ -6,7 +6,23 @@ import PieChart from '../../components/Piechart';
 export function CompanyDetails() {
   const [revenueMonthData, setRevenueMonthData] = useState([]);
   const [vehicleTripData, setVehicleTripData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingRevenue, setLoadingRevenue] = useState(true);
+  const [loadingVehicle, setLoadingVehicle] = useState(true);
+
+  useEffect(() => {
+    const fetchData = () => {
+      setTimeout(() => {
+        const vehicleData = [
+          { vehicleName: 'Xe A', tripCount: 10 },
+          { vehicleName: 'Xe B', tripCount: 15 },
+          { vehicleName: 'Xe C', tripCount: 5 },
+        ];
+        setVehicleTripData(vehicleData);
+        setLoadingVehicle(false);
+      }, 1000);
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const fetchData = () => {
@@ -25,16 +41,8 @@ export function CompanyDetails() {
           110000000,
           100000000
         ];
-
-        const vehicleData = [
-          { vehicleName: 'Xe A', tripCount: 10 },
-          { vehicleName: 'Xe B', tripCount: 15 },
-          { vehicleName: 'Xe C', tripCount: 5 },
-        ];
-
         setRevenueMonthData(revenueData);
-        setVehicleTripData(vehicleData);
-        setLoading(false);
+        setLoadingRevenue(false);
       }, 2000);
     };
     fetchData();
@@ -87,7 +95,7 @@ export function CompanyDetails() {
 
       <Row className="mb-4">
         <Col md={3}>
-          {loading ? (
+          {loadingVehicle ? (
             <div className="text-center">
               <Spinner animation="border" variant="primary" />
               <p>Đang tải dữ liệu...</p>
@@ -97,7 +105,7 @@ export function CompanyDetails() {
           )}
         </Col>
         <Col md={9}>
-          {loading ? (
+          {loadingRevenue ? (
             <div className="text-center">
               <Spinner animation="border" variant="primary" />
               <p>Đang tải dữ liệu...</p>
