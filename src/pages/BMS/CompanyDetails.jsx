@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Spinner } from 'react-bootstrap';
-import RevenueChart from '../../components/RevenueChart'; 
+import RevenueChart from '../../components/Revenuechart'; 
+import PieChart from '../../components/Piechart'; 
 
 export function CompanyDetails() {
-  const [doanhThuThang, setDoanhThuThang] = useState([]);
+  const [revenueMonthData, setRevenueMonthData] = useState([]);
+  const [vehicleTripData, setVehicleTripData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = () => {
       setTimeout(() => {
-        const data = [
+        const revenueData = [
           30000000,
           50000000,
           40000000,
@@ -23,7 +25,15 @@ export function CompanyDetails() {
           110000000,
           100000000
         ];
-        setDoanhThuThang(data);
+
+        const vehicleData = [
+          { vehicleName: 'Xe A', tripCount: 10 },
+          { vehicleName: 'Xe B', tripCount: 15 },
+          { vehicleName: 'Xe C', tripCount: 5 },
+        ];
+
+        setRevenueMonthData(revenueData);
+        setVehicleTripData(vehicleData);
         setLoading(false);
       }, 2000);
     };
@@ -76,14 +86,24 @@ export function CompanyDetails() {
       </Row>
 
       <Row className="mb-4">
-        <Col md={12}>
+        <Col md={3}>
           {loading ? (
             <div className="text-center">
               <Spinner animation="border" variant="primary" />
               <p>Đang tải dữ liệu...</p>
             </div>
           ) : (
-            <RevenueChart doanhThuThang={doanhThuThang} />
+            <PieChart vehicleTripData={vehicleTripData} />
+          )}
+        </Col>
+        <Col md={9}>
+          {loading ? (
+            <div className="text-center">
+              <Spinner animation="border" variant="primary" />
+              <p>Đang tải dữ liệu...</p>
+            </div>
+          ) : (
+            <RevenueChart revenueData={revenueMonthData} />
           )}
         </Col>
       </Row>
