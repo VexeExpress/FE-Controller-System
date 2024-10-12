@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Spinner } from 'react-bootstrap';
-import RevenueChart from '../../components/Revenuechart'; 
+import RevenueChart from '../../components/RevenueChart'; 
 import PieChart from '../../components/Piechart'; 
 
 export function CompanyDetails() {
