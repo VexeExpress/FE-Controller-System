@@ -31,7 +31,7 @@ export function RevenueChart({ revenueData }) {
   return (
     <Card>
       <Card.Body>
-        <Card.Title>Biểu đồ doanh thu</Card.Title>
+        <Card.Title>Biểu đồ doanh thu của công ty</Card.Title>
         <div style={{ height: '381px', width: '100%' }} className="chart-container">
           <Line data={data} options={options} /> 
         </div>

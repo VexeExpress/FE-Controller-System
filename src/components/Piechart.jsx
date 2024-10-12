@@ -36,7 +36,7 @@ export function PieChart({ vehicleTripData }) {
     return (
         <Card>
             <Card.Body>
-                <Card.Title>Biểu đồ doanh thu</Card.Title>
+                <Card.Title style={{textAlign:'center'}}>Biểu đồ số lượng chuyến xe đã chạy</Card.Title>
                 <div className="chart-container" style={{ height: '381px', width: '100%' }}>
                     <Pie data={data} options={options}/>
                 </div>
