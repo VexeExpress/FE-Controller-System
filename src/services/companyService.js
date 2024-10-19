@@ -2,10 +2,10 @@
 
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:3001';
+const API_BASE_URL = 'http://localhost:3002';
 
 
-export const getParter = async () => {
+export const getPartner = async () => {
     try {
         const response = await axios.get(`${API_BASE_URL}/company/get-all-company`);
         return response.data;

@@ -1,16 +1,10 @@
 import React, { useState } from "react";
-import Button from "../components/Button";
+import { FilterableProductTable } from '../components/Product'
 function Dashboard() {
-    const [name, setName] = useState('');
-    const sayHi = () => {
-        alert(`Hello ${name}!`);
-    }
+  
     return (
-        <>
-            <input type="text" onChange={(e) => setName(e.target.value)} placeholder="Enter your name" />
-            <h2>Hello {name}!</h2>
-            <Button onClick={sayHi} label="Hello">Hello</Button>
-
+        <> 
+            <FilterableProductTable/>
         </>
     )
 }

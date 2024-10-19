@@ -1,9 +1,9 @@
-// AddPartnerModal.jsx
+
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { addPartner } from '../../services/companyService';
 
-export function AddPartnerModal({ show, handleClose }) {
+export function PartnerModal({ show, handleClose }) {
     const [formData, setFormData] = useState({
         companyName: '',
         phoneNumber: '',
