@@ -1,64 +1,60 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Spinner } from 'react-bootstrap';
-import RevenueChart from '../../components/RevenueChart'; 
-import PieChart from '../../components/Piechart'; 
+import { useParams } from "react-router-dom"; 
+import { Container, Row, Col, Card, Spinner } from "react-bootstrap";
+import RevenueChart from "../../components/RevenueChart";
+import PieChart from "../../components/Piechart";
+import { companiesData } from "../../data/compaiesData.js"; 
 
 export function CompanyDetails() {
-  const [revenueMonthData, setRevenueMonthData] = useState([]);
-  const [vehicleTripData, setVehicleTripData] = useState([]);
-  const [loadingRevenue, setLoadingRevenue] = useState(true);
-  const [loadingVehicle, setLoadingVehicle] = useState(true);
+  const { id } = useParams(); 
+  const [company, setCompany] = useState(null); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = () => {
+    const fetchCompanyData = () => {
       setTimeout(() => {
-        const vehicleData = [
-          { vehicleName: 'Xe A', tripCount: 89 },
-          { vehicleName: 'Xe B', tripCount: 150 },
-          { vehicleName: 'Xe C', tripCount: 500 },
-          { vehicleName: 'Xe D', tripCount: 190 },
-          { vehicleName: 'Xe E', tripCount: 230 },
-          { vehicleName: 'Xe F', tripCount: 329 },
-        ];
-        setVehicleTripData(vehicleData);
-        setLoadingVehicle(false);
+        const selectedCompany = companiesData.find((company) => company.id === parseInt(id));
+        console.log("Dữ liệu công ty:", selectedCompany); 
+        setCompany(selectedCompany);
+        setLoading(false);
       }, 1000);
     };
-    fetchData();
-  }, []);
+    fetchCompanyData();
+  }, [id]); 
 
-  useEffect(() => {
-    const fetchData = () => {
-      setTimeout(() => {
-        const revenueData = [
-          30000000,
-          50000000,
-          40000000,
-          60000000,
-          70000000,
-          90000000,
-          100000000,
-          85000000,
-          75000000,
-          95000000,
-          110000000,
-          100000000
-        ];
-        setRevenueMonthData(revenueData);
-        setLoadingRevenue(false);
-      }, 2000);
-    };
-    fetchData();
-  }, []);
+  if (loading) {
+    return (
+      <div className="text-center mt-5">
+        <Spinner animation="border" variant="primary" />
+        <p>Đang tải dữ liệu...</p>
+      </div>
+    );
+  }
+
+  if (!company) {
+    return (
+      <div className="text-center mt-5">
+        <h1>Không tìm thấy thông tin công ty!</h1>
+      </div>
+    );
+  }
 
   return (
     <Container fluid>
+      {/* Tiêu đề tên công ty */}
+      <Row className="mb-4">
+        <Col className="text-center">
+          <h1>{company.name}</h1> {/* Tên công ty */}
+        </Col>
+      </Row>
+
+      {/* Các thông tin tổng quan */}
       <Row className="mb-4 justify-content-between">
         <Col md="2">
           <Card bg="danger" text="white" className="text-center">
             <Card.Body>
               <Card.Title>Tổng số nhân viên</Card.Title>
-              <Card.Text>40</Card.Text>
+              <Card.Text>{company.employees}</Card.Text>
             </Card.Body>
           </Card>
         </Col>
@@ -66,7 +62,7 @@ export function CompanyDetails() {
           <Card bg="success" text="white" className="text-center">
             <Card.Body>
               <Card.Title>Tổng số tài xế</Card.Title>
-              <Card.Text>20</Card.Text>
+              <Card.Text>{company.drivers}</Card.Text>
             </Card.Body>
           </Card>
         </Col>
@@ -74,15 +70,15 @@ export function CompanyDetails() {
           <Card bg="primary" text="white" className="text-center">
             <Card.Body>
               <Card.Title>Tổng số xe</Card.Title>
-              <Card.Text>50</Card.Text>
+              <Card.Text>{company.vehicles}</Card.Text>
             </Card.Body>
           </Card>
-        </Col> 
+        </Col>
         <Col md="2">
           <Card bg="info" text="white" className="text-center">
             <Card.Body>
               <Card.Title>Tổng số chuyến đi</Card.Title>
-              <Card.Text>120</Card.Text>
+              <Card.Text>{company.trips}</Card.Text>
             </Card.Body>
           </Card>
         </Col>
@@ -90,35 +86,23 @@ export function CompanyDetails() {
           <Card bg="warning" text="white" className="text-center">
             <Card.Body>
               <Card.Title>Tổng vé bán ra</Card.Title>
-              <Card.Text>350</Card.Text>
+              <Card.Text>{company.ticketsSold}</Card.Text>
             </Card.Body>
           </Card>
         </Col>
       </Row>
 
+      {/* Biểu đồ */}
       <Row className="mb-4">
         <Col md={3}>
-          {loadingVehicle ? (
-            <div className="text-center">
-              <Spinner animation="border" variant="primary" />
-              <p>Đang tải dữ liệu...</p>
-            </div>
-          ) : (
-            <PieChart vehicleTripData={vehicleTripData} />
-          )}
+          <PieChart vehicleTripData={company.vehicleTrips} />
         </Col>
         <Col md={9}>
-          {loadingRevenue ? (
-            <div className="text-center">
-              <Spinner animation="border" variant="primary" />
-              <p>Đang tải dữ liệu...</p>
-            </div>
-          ) : (
-            <RevenueChart revenueData={revenueMonthData} />
-          )}
+          <RevenueChart revenueData={company.revenue} />
         </Col>
       </Row>
 
+      {/* Thông báo và chuyến đi sắp tới */}
       <Row>
         <Col md={6}>
           <Card>

@@ -1,49 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
-import { AddPartnerModal } from '../../components/company/AddPartnerModal';
 import { CompanyTable } from '../../components/company/CompanyTable';
-import { getParter } from '../../services/companyService';
-import '../../styles/css/company.css'
+import { companiesData } from "../../data/compaiesData.js"; 
+
 export function Company() {
-    const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [companies, setCompanies] = useState([]);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+  useEffect(() => {
+    const fetchCompanies = async () => {
+      try {
+        setTimeout(() => {
+          setCompanies(companiesData);
+          console.log("Data company: ", companiesData);
+          setLoading(false);
+        }, 1000); 
+      } catch (error) {
+        console.error('Failed to fetch companies:', error);
+      }
+    };
 
-    const [loading, setLoading] = useState(true);
-    const [companies, setCompanies] = useState([]);
-    useEffect(() => {
-        const fetchCompanies = async () => {
-            try {
-                const data = await getParter();
-                setCompanies(data);
-                console.log("Data company: " + data)
-            } catch (error) {
-                console.error('Failed to fetch companies:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
+    fetchCompanies();
+  }, []);
 
-        fetchCompanies();
-    }, []);
-    return (
-        <>
-            <div class="partner-header">
-                <span class="partner-title">DANH SÁCH ĐỐI TÁC</span>
-                <button class="btn-add-partner" onClick={handleShow}>Thêm đối tác</button>
-            </div>
+  return (
+    <div>
+      <div className="partner-header">
+        DANH SÁCH ĐỐI TÁC
+      </div>
 
-
-            {loading ? (
-                <p>Loading...</p>
-            ) : (
-                <CompanyTable companies={companies} />
-            )}
-
-            <AddPartnerModal show={show} handleClose={handleClose} />
-
-
-        </>
-    );
-};
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <CompanyTable companies={companies} />
+      )}
+    </div>
+  );
+}
