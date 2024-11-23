@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { CompanyTable } from '../../components/company/CompanyTable';
-import { companiesData } from "../../data/compaiesData.js"; 
 
 export function Company() {
   const [loading, setLoading] = useState(true);
@@ -9,15 +8,19 @@ export function Company() {
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
-        setTimeout(() => {
-          setCompanies(companiesData);
-          console.log("Data company: ", companiesData);
+        const response = await fetch('http://localhost:3000/company/getAllCompany');
+        const result = await response.json();
+        if (result.success) {
+          setCompanies(result.data.companiesData);  
           setLoading(false);
-        }, 1000); 
+        } else {
+          throw new Error("Không có dữ liệu");
+        }
       } catch (error) {
-        console.error('Failed to fetch companies:', error);
+        setLoading(false);
       }
     };
+    
 
     fetchCompanies();
   }, []);
