@@ -18,8 +18,6 @@ function Login() {
           <Image src={`${process.env.PUBLIC_URL}/static/logo.png`} alt="Logo" width={200} />
         </Col>
       </Row>
-
-
       <Row className="justify-content-center mt-4">
         <Col md={4}>
           <Form onSubmit={handleSubmit}>

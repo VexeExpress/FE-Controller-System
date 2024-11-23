@@ -4,7 +4,7 @@ import MainLayout from './layouts/MainLayout';
 import Login from "./pages/Login";
 import useAuthStatus from './hooks/useAuthStatus';
 import Dashboard from './pages/Dashboard'
-
+import './styles/css/global.css'
 function App() {
   const { isAuthenticated } = useAuthStatus();
   return (

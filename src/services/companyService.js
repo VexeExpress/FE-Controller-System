@@ -5,9 +5,9 @@ import axios from 'axios';
 const API_BASE_URL = 'http://localhost:3002';
 
 
-export const getPartner = async () => {
+export const getAllPartner = async () => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/company/get-all-company`);
+        const response = await axios.get(`${API_BASE_URL}/api/companies`);
         return response.data;
     } catch (error) {
         console.error('Error fetching companies:', error);

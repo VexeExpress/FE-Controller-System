@@ -1,54 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import { PartnerHeader } from '../../components/Partner/PartnerHeader';
 import { PartnerTable } from '../../components/Partner/PartnerTable';
 import { PartnerModal } from '../../components/Partner/PartnerModal';
-import { getPartner } from '../../services/companyService';
 import '../../styles/css/company.css'
+import { getAllPartner } from '../../services/companyService';
 
 export function PartnerPage() {
-    const [loading, setLoading] = useState(true);  
-    const [show, setShow] = useState(false);  
-    const [companies, setCompanies] = useState([  
-        {
-            id: 1,
-            name: "Công ty 1",
-            phone: "0877717575",
-            address: "San Francisco, CA",
-            createdAt: "2024-08-01",  
-            status: true
-        },
-        {
-            id: 2,
-            name: "Công ty 2",
-            phone: "0397892603",
-            address: "Austin, TX",
-            createdAt: "2024-07-28",  
-            status: true
-        },
-    ]);
+    const [loading, setLoading] = useState(true);
+    const [show, setShow] = useState(false);
+    const [companies, setCompanies] = useState([]); 
     useEffect(() => {
-       
-        setTimeout(() => {
-            setLoading(false); 
-        }, 1000);  
-    }, []);
-    
-    
+        const fetchPartner = async () => {
+            try {
+                const data = await getAllPartner();
+                setCompanies(data); 
+                console.log(data);
+            } catch (error) {
+                console.error('Error fetching partner:', error);
+            } finally {
+                setLoading(false); 
+            }
+        };
 
-    const handleShow = () => setShow(true); 
-    const handleClose = () => setShow(false);  
+        fetchPartner();
+    }, []);
+
+
+
+    const handleShowModal = () => setShow(true);
+    const handleClose = () => setShow(false);
 
     return (
         <>
-            <PartnerHeader handleShow={handleShow} /> 
-            
+            <div className="partner-header">
+                <span className="partner-title">DANH SÁCH ĐỐI TÁC</span>
+                <button className="btn-add-partner" onClick={handleShowModal}>Thêm đối tác</button>
+            </div>
+
             {loading ? (
-                <p>Loading...</p> 
+                <p>Loading...</p>
             ) : (
-                <PartnerTable companies={companies} /> 
+                <PartnerTable companies={companies} />
             )}
 
-            <PartnerModal show={show} handleClose={handleClose} />  
+            <PartnerModal show={show} handleClose={handleClose} />
         </>
     );
 }

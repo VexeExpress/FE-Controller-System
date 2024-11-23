@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 export function PartnerTable({ companies }) {
     return (
         <table className="table">
@@ -17,13 +18,14 @@ export function PartnerTable({ companies }) {
                 {companies.map((company, index) => (
                     <tr key={company.id}>
                         <td>{index + 1}</td>
-                        <td>{company.name}</td>
-                        <td>{company.phone}</td>
+                        <td>{company.company_name}</td>
+                        <td>{company.phone_number}</td>
                         <td>{company.address}</td>
-                        <td>{company.createdAt}</td>
+                        <td>{company.created_at}</td>
                         <td>{company.status ? "Hoạt động" : "Ngưng hoạt động"}</td>
                         <td>
-                            
+                            <Button variant="outline-primary" className='mr-2'>Sửa</Button>
+                            <Button variant="outline-danger">Xoá</Button>
                         </td>
                     </tr>
                 ))}
