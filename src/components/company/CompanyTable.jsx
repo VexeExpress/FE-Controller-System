@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function CompanyTable({ companies }) {
+    const navigate = useNavigate();
+
     return (
         <table className="table">
             <thead>
@@ -22,6 +25,11 @@ export function CompanyTable({ companies }) {
                         <td>{company.address}</td>
                         <td>{company.createdAt}</td>
                         <td>{company.status}</td>
+                        <td>
+                            <button onClick={() => navigate(`details/${company.id}`)}>
+                                Xem chi tiết
+                            </button>
+                        </td>
                     </tr>
                 ))}
             </tbody>
