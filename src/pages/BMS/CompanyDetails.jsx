@@ -6,7 +6,7 @@ import PieChart from "../../components/Piechart";
 
 export function CompanyDetails() {
   const { id } = useParams();
-  const [company, setCompany] = useState(null); // Initialize with null
+  const [company, setCompany] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -29,14 +29,6 @@ export function CompanyDetails() {
       <div className="text-center mt-5">
         <Spinner animation="border" variant="primary" />
         <p>Đang tải dữ liệu...</p>
-      </div>
-    );
-  }
-
-  if (!company) {
-    return (
-      <div className="text-center mt-5">
-        <p>Không tìm thấy công ty.</p>
       </div>
     );
   }
