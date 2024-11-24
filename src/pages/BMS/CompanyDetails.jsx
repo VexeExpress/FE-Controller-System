@@ -3,23 +3,26 @@ import { useParams } from "react-router-dom";
 import { Container, Row, Col, Card, Spinner } from "react-bootstrap";
 import RevenueChart from "../../components/RevenueChart";
 import PieChart from "../../components/Piechart";
-import { companiesData } from "../../data/compaiesData.js";
-
 
 export function CompanyDetails() {
   const { id } = useParams();
-  const [company, setCompany] = useState(null);
+  const [company, setCompany] = useState(null); // Initialize with null
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCompanyData = () => {
-      const selectedCompany = companiesData.find((company) => company.id === parseInt(id));
-      setCompany(selectedCompany);
-      setLoading(false);
-      console.log("Dữ liệu công ty:", selectedCompany);
+    const fetchCompany = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/company/getCompanyByID/${id}`);
+        const result = await response.json();
+        setCompany(result.data);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
     };
-    fetchCompanyData();
+    fetchCompany();
   }, [id]);
+
 
   if (loading) {
     return (
@@ -30,12 +33,20 @@ export function CompanyDetails() {
     );
   }
 
+  if (!company) {
+    return (
+      <div className="text-center mt-5">
+        <p>Không tìm thấy công ty.</p>
+      </div>
+    );
+  }
+
   return (
     <Container fluid>
       {/* Tiêu đề tên công ty */}
       <Row className="mb-4">
         <Col className="text-center">
-          <h1>{company.name}</h1> {/* Tên công ty */}
+          <h1>{company.name}</h1> {/* Ensure companies is not null */}
         </Col>
       </Row>
 
