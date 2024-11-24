@@ -8,19 +8,15 @@ export function Company() {
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
-        const response = await fetch('http://localhost:3000/company/getAllCompany');
+        const response = await fetch('http://localhost:3000/api/company/getAllCompany');
         const result = await response.json();
-        if (result.success) {
-          setCompanies(result.data.companiesData);  
-          setLoading(false);
-        } else {
-          throw new Error("Không có dữ liệu");
-        }
+        setCompanies(result.data.companiesData);
+        setLoading(false);
       } catch (error) {
         setLoading(false);
       }
     };
-    
+
 
     fetchCompanies();
   }, []);
