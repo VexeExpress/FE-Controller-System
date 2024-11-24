@@ -1,40 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; 
+import { useParams } from "react-router-dom";
 import { Container, Row, Col, Card, Spinner } from "react-bootstrap";
 import RevenueChart from "../../components/RevenueChart";
 import PieChart from "../../components/Piechart";
-import { companiesData } from "../../data/compaiesData.js"; 
+import { companiesData } from "../../data/compaiesData.js";
 
 export function CompanyDetails() {
-  const { id } = useParams(); 
-  const [company, setCompany] = useState(null); 
+  const { id } = useParams();
+  const [company, setCompany] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCompanyData = () => {
-      setTimeout(() => {
-        const selectedCompany = companiesData.find((company) => company.id === parseInt(id));
-        console.log("Dữ liệu công ty:", selectedCompany); 
-        setCompany(selectedCompany);
-        setLoading(false);
-      }, 1000);
+      const selectedCompany = companiesData.find((company) => company.id === parseInt(id));
+      setCompany(selectedCompany);
+      setLoading(false);
+      console.log("Dữ liệu công ty:", selectedCompany);
     };
     fetchCompanyData();
-  }, [id]); 
+  }, [id]);
 
   if (loading) {
     return (
       <div className="text-center mt-5">
         <Spinner animation="border" variant="primary" />
         <p>Đang tải dữ liệu...</p>
-      </div>
-    );
-  }
-
-  if (!company) {
-    return (
-      <div className="text-center mt-5">
-        <h1>Không tìm thấy thông tin công ty!</h1>
       </div>
     );
   }

@@ -16,8 +16,6 @@ export function Company() {
         setLoading(false);
       }
     };
-
-
     fetchCompanies();
   }, []);
 
