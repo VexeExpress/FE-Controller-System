@@ -5,6 +5,7 @@ import RevenueChart from "../../components/RevenueChart";
 import PieChart from "../../components/Piechart";
 import { companiesData } from "../../data/compaiesData.js";
 
+
 export function CompanyDetails() {
   const { id } = useParams();
   const [company, setCompany] = useState(null);

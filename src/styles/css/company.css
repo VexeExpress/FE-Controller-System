@@ -21,3 +21,18 @@
 .btn-add-partner:hover {
     background-color: #0056b3;
 }
+.sort-controls {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sort-controls label {
+    margin-right: 0.5rem;
+  }
+  
+  .sort-controls select {
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+  
