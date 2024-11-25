@@ -4,7 +4,7 @@ import { CompanyTable } from '../../components/company/CompanyTable';
 export function Company() {
   const [loading, setLoading] = useState(true);
   const [companies, setCompanies] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState(''); 
 
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -15,33 +15,47 @@ export function Company() {
         setLoading(false);
       } catch (error) {
         setLoading(false);
+        console.error('Error fetching companies:', error);
       }
     };
     fetchCompanies();
   }, []);
 
-  const filteredCompanies = companies.filter((company) =>
-    company.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    company.phone.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    company.address.toLowerCase().includes(searchTerm.toLowerCase()) 
-  );
+  const searchCompanies = async () => {
+    if (searchTerm) {
+      try {
+        setLoading(true);
+        const response = await fetch(`http://localhost:3000/api/company/search?name=${searchTerm}`);
+        const result = await response.json();
+        setCompanies(result.data);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    } else {
+      const response = await fetch('http://localhost:3000/api/company/getAllCompany');
+      const result = await response.json();
+      setCompanies(result.data.companiesData);
+      setLoading(false);
+    }
+  };
 
   return (
     <div>
       <div className="partner-header">DANH SÁCH ĐỐI TÁC</div>
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Tìm kiếm theo tên công ty..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="search-input"
-        />
-      </div>
+
+      <input
+        type="text"
+        placeholder="Tìm kiếm theo tên công ty..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <button onClick={searchCompanies}>Tìm kiếm</button>
+
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <CompanyTable companies={filteredCompanies} />
+        <CompanyTable companies={companies} />
       )}
     </div>
   );
