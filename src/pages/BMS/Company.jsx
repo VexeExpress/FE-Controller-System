@@ -4,14 +4,14 @@ import { CompanyTable } from '../../components/company/CompanyTable';
 export function Company() {
   const [loading, setLoading] = useState(true);
   const [companies, setCompanies] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(''); 
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
         const response = await fetch('http://localhost:3000/api/company/getAllCompany');
         const result = await response.json();
-        setCompanies(result.data.companiesData);
+        setCompanies(result.data);
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -35,7 +35,7 @@ export function Company() {
     } else {
       const response = await fetch('http://localhost:3000/api/company/getAllCompany');
       const result = await response.json();
-      setCompanies(result.data.companiesData);
+      setCompanies(result.data);
       setLoading(false);
     }
   };
