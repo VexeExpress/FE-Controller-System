@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-export function PartnerTable({ companies }) {
+export function PartnerTable({ partners }) {
     return (
         <table className="table">
             <thead>
@@ -15,7 +15,7 @@ export function PartnerTable({ companies }) {
                 </tr>
             </thead>
             <tbody>
-                {companies.map((company, index) => (
+                {partners.map((company, index) => (
                     <tr key={company.id}>
                         <td>{index + 1}</td>
                         <td>{company.company_name}</td>

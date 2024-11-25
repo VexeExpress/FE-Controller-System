@@ -5,7 +5,7 @@ function Login() {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (event: { preventDefault: () => void; }) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     console.log('Username:', username);
     console.log('Password:', password);

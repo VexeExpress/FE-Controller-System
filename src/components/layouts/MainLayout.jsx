@@ -1,6 +1,6 @@
 import React from "react";
-import Header from '../components/Header';
-import Menu from '../components/Menu';
+import Header from '../Header';
+import Menu from '../Menu';
 
 const MainLayout = ({ children }) => {
     return (

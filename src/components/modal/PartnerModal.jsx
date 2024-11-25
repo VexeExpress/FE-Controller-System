@@ -55,7 +55,6 @@ export function PartnerModal({ show, handleClose }) {
                             onChange={handleInputChange}
                         />
                     </Form.Group>
-
                     <Form.Group className="mb-3" controlId="phoneNumber">
                         <Form.Label>Số điện thoại liên hệ</Form.Label>
                         <Form.Control
@@ -65,7 +64,6 @@ export function PartnerModal({ show, handleClose }) {
                             onChange={handleInputChange}
                         />
                     </Form.Group>
-
                     <Form.Group className="mb-3" controlId="address">
                         <Form.Label>Địa chỉ</Form.Label>
                         <Form.Control
@@ -75,7 +73,6 @@ export function PartnerModal({ show, handleClose }) {
                             onChange={handleInputChange}
                         />
                     </Form.Group>
-
                     <Form.Group className="mb-3" controlId="status">
                         <Form.Label>Trạng thái</Form.Label>
                         <Form.Select value={formData.status} onChange={handleStatusChange}>
@@ -83,7 +80,6 @@ export function PartnerModal({ show, handleClose }) {
                             <option value="false">Ngưng hoạt động</option>
                         </Form.Select>
                     </Form.Group>
-
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
                             Đóng

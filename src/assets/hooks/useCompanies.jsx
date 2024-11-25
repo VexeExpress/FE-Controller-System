@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getAllCompanies } from '../services/companyService'; // Gọi hàm từ service
+import { getAllCompanies } from '../../services/companyService'; // Gọi hàm từ service
 
 export const useCompanies = () => {
   const [companies, setCompanies] = useState([]);

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { FilterableProductTable } from '../components/Product'
+import React from "react";
 function Dashboard() {
   
     return (
         <> 
-            <FilterableProductTable/>
+            Dashboard
         </>
     )
 }
