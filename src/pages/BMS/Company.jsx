@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { CompanyTable } from '../../components/company/CompanyTable';
-import '../../styles/css/company.css'
 
 export function Company() {
   const [loading, setLoading] = useState(true);
   const [companies, setCompanies] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -20,14 +20,28 @@ export function Company() {
     fetchCompanies();
   }, []);
 
+  const filteredCompanies = companies.filter((company) =>
+    company.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    company.phone.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    company.address.toLowerCase().includes(searchTerm.toLowerCase()) 
+  );
 
   return (
     <div>
       <div className="partner-header">DANH SÁCH ĐỐI TÁC</div>
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Tìm kiếm theo tên công ty..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
+      </div>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <CompanyTable companies={companies} />
+        <CompanyTable companies={filteredCompanies} />
       )}
     </div>
   );
