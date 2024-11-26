@@ -1,15 +1,16 @@
 import API from './api';
 
-// Hàm lấy danh sách khách hàng
-export const getPartner = async () => {
+// Hàm xóa khách hàng
+export const deletePartner = async (id) => {
     try {
-        const response = await API.get('/partners');
+        const response = await API.delete(`/partners/${id}`);
         return response.data;
     } catch (error) {
-        console.error('Error fetching partners:', error);
+        console.error(`Error deleting partner with ID ${id}:`, error);
         throw error;
     }
 };
+
 
 // Hàm tạo khách hàng
 export const createPartner = async (userData) => {
@@ -22,6 +23,19 @@ export const createPartner = async (userData) => {
     }
 };
 
+// Hàm lấy danh sách khách hàng
+export const getPartner = async () => {
+    try {
+        const response = await API.get('/partners');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching partners:', error);
+        throw error;
+    }
+};
+
+
+
 // Hàm cập nhật thông tin khách hàng
 export const updatePartner = async (userId, userData) => {
     try {
@@ -33,13 +47,3 @@ export const updatePartner = async (userId, userData) => {
     }
 };
 
-// Hàm xóa khách hàng
-export const deletePartner = async (userId) => {
-    try {
-        const response = await API.delete(`/partners/${userId}`);
-        return response.data;
-    } catch (error) {
-        console.error(`Error deleting partner with ID ${userId}:`, error);
-        throw error;
-    }
-};

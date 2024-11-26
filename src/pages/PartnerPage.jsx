@@ -1,18 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
-import { PartnerTable } from '../components/table/PartnerTable';
-import { PartnerModal } from '../components/modal/PartnerModal';
-import { createPartner } from '../services/partnerService';
+import PartnerTable from '../components/table/PartnerTable';
+import  PartnerModal  from '../components/modal/PartnerModal';
+import { createPartner, getPartner, deletePartner } from '../services/partnerService';
 export function PartnerPage() {
     const [showModal, setShowModal] = useState(false);
-    const [partners, setPartners] = useState([]);
     const [loading, setLoading] = useState(true);
     const [partnerData, setPartnerData] = useState({
-        companyName: '',
-        phoneNumber: '',
+        company_name: '',
+        phone_number: '',
         address: '',
         status: true,
     });
+    const [partners, setPartners] = useState([]);
+    
+    const handleDelete = async (id) => {
+        console.log('Delete partner with ID:', id);
+        try {
+            await deletePartner(id);
+            console.log('Delete partner successfully');
+            setPartners(partners.filter(partner => partner.id !== id));
+        } catch (error) {
+            console.error('Error deleting partner:', error);
+        }
+    };
+    // Lấy danh sách đối tác
+    useEffect(() => {
+        const getPartners = async () => {
+            try {
+                const data = await getPartner();
+                setPartners(data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching partners:', error);
+                setLoading(false);
+            }
+        };
+
+        getPartners();
+    }, []);
     // Mở modal
     const handleShowModal = () => setShowModal(true);
     // Đóng modal
@@ -22,11 +48,14 @@ export function PartnerPage() {
         const { name, value } = e.target;
         setPartnerData({ ...partnerData, [name]: value });
     };
+
     // Gửi thông tin để tạo đối tác mới
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log('Data send to server:', partnerData);
         try {
             const newPartner = await createPartner(partnerData);
+            console.log('Data from server:', newPartner);
             setPartners([...partners, newPartner]); // Cập nhật danh sách đối tác
             handleCloseModal(); // Đóng modal sau khi thêm
         } catch (error) {
@@ -40,7 +69,7 @@ export function PartnerPage() {
                 Thêm đối tác
             </Button>
         </div>
-        
+
         <PartnerModal
             show={showModal}
             handleClose={handleCloseModal}
@@ -52,7 +81,7 @@ export function PartnerPage() {
         {loading ? (
             <p>Loading...</p>
         ) : (
-            <PartnerTable partners={partners} />
+            <PartnerTable partners={partners} onDelete={handleDelete}/>
         )}
 
     </>);

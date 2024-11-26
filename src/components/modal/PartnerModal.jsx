@@ -1,95 +1,59 @@
-
-import React, { useState } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
-import { addPartner } from '../../services/companyService';
-
-export function PartnerModal({ show, handleClose }) {
-    const [formData, setFormData] = useState({
-        companyName: '',
-        phoneNumber: '',
-        address: '',
-        status: true, 
-    });
-    
-
-    const handleInputChange = (e) => {
-        const { id, value } = e.target;
-        setFormData({
-            ...formData,
-            [id]: value,
-        });
-    };
-
-    const handleStatusChange = (e) => {
-        setFormData({
-            ...formData,
-            status: e.target.value === 'true',
-        });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await addPartner(formData);
-            console.log('Form data submitted:', formData);
-            handleClose();
-        } catch (error) {
-            console.error('Error submitting form data:', error);
-        }
-    };
-    
-
+import React from 'react';
+import { Modal, Form, Button } from 'react-bootstrap';
+const PartnerModal = ({ show, handleClose, handleSubmit, partnerData, handleInputChange }) => {
     return (
-        <Modal show={show} onHide={handleClose} centered size="lg">
+        <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Thêm đối tác</Modal.Title>
+                <Modal.Title>Thêm Đối Tác</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3" controlId="companyName">
-                        <Form.Label>Tên công ty</Form.Label>
+                    <Form.Group controlId="company_name">
+                        <Form.Label>Tên Công Ty</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Nhập tên công ty"
-                            value={formData.companyName}
+                            name="company_name"
+                            value={partnerData.company_name}
                             onChange={handleInputChange}
+                            required
                         />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="phoneNumber">
-                        <Form.Label>Số điện thoại liên hệ</Form.Label>
-                        <Form.Control
-                            type="tel"
-                            placeholder="Nhập số điện thoại"
-                            value={formData.phoneNumber}
-                            onChange={handleInputChange}
-                        />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="address">
-                        <Form.Label>Địa chỉ</Form.Label>
+                    <Form.Group controlId="phone_number" className="mt-3">
+                        <Form.Label>Số Điện Thoại</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Nhập địa chỉ"
-                            value={formData.address}
+                            name="phone_number"
+                            value={partnerData.phone_number}
                             onChange={handleInputChange}
+                            required
                         />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="status">
-                        <Form.Label>Trạng thái</Form.Label>
-                        <Form.Select value={formData.status} onChange={handleStatusChange}>
-                            <option value="true">Hoạt động</option>
-                            <option value="false">Ngưng hoạt động</option>
-                        </Form.Select>
+                    <Form.Group controlId="address" className="mt-3">
+                        <Form.Label>Địa Chỉ</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="address"
+                            value={partnerData.address}
+                            onChange={handleInputChange}
+                            required
+                        />
                     </Form.Group>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            Đóng
-                        </Button>
-                        <Button variant="primary" type="submit">
-                            Lưu lại
-                        </Button>
-                    </Modal.Footer>
+                    <Form.Group controlId="status" className="mt-3">
+                        <Form.Label>Trạng Thái</Form.Label>
+                        <Form.Check
+                            type="checkbox"
+                            name="status"
+                            label="Hoạt động"
+                            checked={partnerData.status}
+                            onChange={(e) => handleInputChange({
+                                target: { name: 'status', value: e.target.checked }
+                            })}
+                        />
+                    </Form.Group>
+                    <Button variant="primary" type="submit" className="mt-4">Lưu</Button>
                 </Form>
             </Modal.Body>
         </Modal>
     );
-}
+};
+export default PartnerModal;
