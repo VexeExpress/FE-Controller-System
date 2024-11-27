@@ -14,10 +14,9 @@ const Header = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="#">Menu1</Nav.Link>
-                        <Nav.Link href="#">Menu2</Nav.Link>
-                        <Nav.Link href="#">Menu3</Nav.Link>
-                        <Nav.Link href="#">Menu4</Nav.Link>
+                        <Nav.Link href="/thanh">Thành</Nav.Link>
+                        <Nav.Link href="/quang">Quang</Nav.Link>
+                    
                     </Nav>
                     <Button variant="outline-info" className="ms-auto" >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-right" viewBox="0 0 16 16">
