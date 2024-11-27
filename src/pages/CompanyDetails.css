@@ -1,0 +1,60 @@
+.stats {
+display: flex;
+justify-content: space-between;
+margin-bottom: 20px;
+}
+
+.card {
+flex: 1;
+margin: 0 10px;
+padding: 20px;
+border-radius: 8px;
+color: white;
+text-align: center;
+}
+
+.card.danger {
+background-color: #dc3545;
+}
+
+.card.success {
+background-color: #28a745;
+}
+
+.card.primary {
+background-color: #007bff;
+}
+
+.card.info {
+background-color: #17a2b8;
+}
+
+.card.warning {
+background-color: #ffc107;
+color: #212529;
+}
+
+.charts {
+display: flex;
+gap: 20px;
+margin-bottom: 20px;
+}
+
+.charts .pie-chart {
+flex: 1;
+}
+
+.charts .revenue-chart {
+flex: 3;
+}
+
+.notifications,
+.upcoming-trips {
+flex: 1;
+margin: 0 10px;
+}
+
+.cards-row {
+display: flex;
+gap: 20px;
+}
